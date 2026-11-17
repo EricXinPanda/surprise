@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#fff8fb" />
+  <meta name="description" content="A soft National Princess Day surprise." />
+  <title>For My Princess</title>
+  <style>
+    :root{
+      --bg:#fffafc;
+      --bg2:#fff4f8;
+      --paper:#fffefe;
+      --ink:#6f5c66;
+      --muted:#9d8893;
+      --pink:#efc5d7;
+      --pink2:#de9fb9;
+      --line:#ead9e2;
+      --gold:#f2ddb0;
+      --shadow:0 22px 60px rgba(170,126,147,.14);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-width:320px;background:radial-gradient(circle at top left,#fff3f7 0%,transparent 35%),radial-gradient(circle at bottom right,#fff3e9 0%,transparent 30%),var(--bg);color:var(--ink);font-family:"Trebuchet MS",system-ui,sans-serif;overflow-x:hidden}
+    button{font:inherit;cursor:pointer;border:0}
+    .texture{position:fixed;inset:0;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='2' seed='11'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E")}
+
+    .screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+    .hidden{display:none!important}
+
+    .bouquet-stage{text-align:center;width:min(900px,100%)}
+    .bouquet-card,.envelope-card{
+      background:linear-gradient(180deg,#fffefe 0%,#fff8fb 100%);
+      border:1px solid var(--line);
+      border-radius:34px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .bouquet-card{padding:34px 22px 28px}
+    .bouquet-card:before,.bouquet-card:after,.envelope-card:before,.envelope-card:after{content:"";position:absolute;border-radius:50%;z-index:0}
+    .bouquet-card:before,.envelope-card:before{width:230px;height:230px;left:-65px;top:-80px;background:#fde7f0;opacity:.8}
+    .bouquet-card:after,.envelope-card:after{width:270px;height:270px;right:-90px;bottom:-120px;background:#fff1d7;opacity:.65}
+    .inner{position:relative;z-index:1}
+
+    .pill{display:inline-flex;align-items:center;justify-content:center;padding:13px 24px;border:1px solid #e8d7df;border-radius:999px;background:#fff9fb;color:#937f89;font-weight:900;letter-spacing:.24em;font-size:13px;text-transform:uppercase}
+    .bouquet-title{margin:22px 0 10px;font-family:Georgia,"Times New Roman",serif;font-size:clamp(34px,5.5vw,70px);line-height:1.05;letter-spacing:-.04em}
+    .bouquet-sub{max-width:580px;margin:0 auto;color:var(--muted);font-size:18px;line-height:1.9}
+
+    .bouquet-svg{display:block;width:min(720px,100%);height:auto;margin:10px auto 8px;filter:drop-shadow(0 18px 24px rgba(171,124,144,.16))}
+    .enter-btn{margin-top:18px;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 30px;border-radius:999px;background:linear-gradient(180deg,#e3a4bf 0%,#d690ae 100%);color:#fff;font-weight:800;box-shadow:0 14px 28px rgba(217,145,176,.25)}
+    .enter-note{margin-top:14px;color:#af97a1;font-size:14px}
+
+    .envelope-wrap{text-align:center;width:min(760px,100%)}
+    .envelope-card{padding:36px 20px 32px}
+    .mini-title{font-size:13px;font-weight:900;letter-spacing:.25em;text-transform:uppercase;color:#b2889d;margin-bottom:12px}
+    .envelope-btn{background:transparent;padding:0}
+    .envelope-svg{display:block;width:min(440px,82vw);height:auto;margin:0 auto;filter:drop-shadow(0 18px 28px rgba(190,145,166,.18))}
+    .tap-note{margin-top:10px;color:#b195a1;font-size:15px}
+
+    .letter-paper{display:none;width:min(760px,100%);margin:18px auto 0;background:linear-gradient(180deg,#fffefd 0%,#fff9fb 100%);border:1px solid #ecdde5;border-radius:28px;padding:34px 22px 30px;box-shadow:0 22px 60px rgba(179,130,154,.14);text-align:left}
+    .letter-paper.is-open{display:block}
+    .letter-head{text-align:center;font-size:12px;font-weight:900;letter-spacing:.26em;text-transform:uppercase;color:#b48da0}
+    .letter-paper h2{margin:18px 0;font-family:Georgia,"Times New Roman",serif;font-size:30px;text-align:center}
+    .letter-body{max-width:650px;margin:0 auto;color:#786670;font-size:17px;line-height:2}
+    .letter-body p{margin:0 0 18px}
+    .letter-body .strong{font-weight:900;color:#6c5661}
+    .signature{margin-top:8px;text-align:right;font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:22px;color:#b08298}
+    .close-btn{display:block;margin:16px 0 0 auto;background:#f7edf2;border:1px solid #ead8e0;color:#8a7280;padding:12px 18px;border-radius:999px;font-weight:700}
+
+    @media (max-width:560px){
+      .bouquet-card,.envelope-card{border-radius:26px}
+      .pill{font-size:11px;letter-spacing:.18em}
+      .bouquet-sub{font-size:16px}
+      .letter-body{font-size:16px;line-height:1.9}
+      .letter-paper{padding:26px 16px}
+    }
+  </style>
+</head>
+<body>
+  <div class="texture" aria-hidden="true"></div>
+
+  <section class="screen" id="bouquetScreen">
+    <div class="bouquet-stage">
+      <div class="bouquet-card">
+        <div class="inner">
+          <h1 class="bouquet-title">A Bouquet for My Princess</h1>
+          <svg class="bouquet-svg" viewBox="0 0 860 620" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="wrap" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#fff4dc"/>
+                <stop offset="100%" stop-color="#f5dcb2"/>
+              </linearGradient>
+            </defs>
+            <g>
+              <ellipse cx="430" cy="560" rx="170" ry="26" fill="#eedce4"/>
+              <g stroke="#8fbc97" stroke-width="6" stroke-linecap="round" fill="none">
+                <path d="M430 470 C420 385 375 315 305 245"/>
+                <path d="M430 470 C430 370 430 305 430 220"/>
+                <path d="M430 470 C450 385 500 315 570 240"/>
+                <path d="M430 470 C385 390 335 355 265 330"/>
+                <path d="M430 470 C475 390 528 352 600 325"/>
+                <path d="M430 470 C410 395 390 340 365 280"/>
+                <path d="M430 470 C448 392 475 344 500 287"/>
+              </g>
+              <g fill="#f6cad8" stroke="#e4a8be" stroke-width="3" transform="translate(300 225)">
+                <ellipse cx="0" cy="-28" rx="22" ry="42"/>
+                <ellipse cx="0" cy="-28" rx="22" ry="42" transform="rotate(60 0 0)"/>
+                <ellipse cx="0" cy="-28" rx="22" ry="42" transform="rotate(120 0 0)"/>
+                <circle cx="0" cy="0" r="16" fill="#f8e5a7" stroke="#e2c67f"/>
+              </g>
+              <g fill="#e6d8fa" stroke="#c8b5e9" stroke-width="3" transform="translate(430 195)">
+                <ellipse cx="0" cy="-28" rx="22" ry="42"/>
+                <ellipse cx="0" cy="-28" rx="22" ry="42" transform="rotate(60 0 0)"/>
+                <ellipse cx="0" cy="-28" rx="22" ry="42" transform="rotate(120 0 0)"/>
+                <circle cx="0" cy="0" r="16" fill="#f8e5a7" stroke="#e2c67f"/>
+              </g>
+              <g fill="#f9dfb7" stroke="#ebc88e" stroke-width="3" transform="translate(562 220)">
+                <ellipse cx="0" cy="-28" rx="22" ry="42"/>
+                <ellipse cx="0" cy="-28" rx="22" ry="42" transform="rotate(60 0 0)"/>
+                <ellipse cx="0" cy="-28" rx="22" ry="42" transform="rotate(120 0 0)"/>
+                <circle cx="0" cy="0" r="16" fill="#fff2c7" stroke="#e2c67f"/>
+              </g>
+              <g fill="#f6cad8" stroke="#e4a8be" stroke-width="3" transform="translate(260 315) scale(.92)">
+                <ellipse cx="0" cy="-28" rx="22" ry="42"/>
+                <ellipse cx="0" cy="-28" rx="22" ry="42" transform="rotate(60 0 0)"/>
+                <ellipse cx="0" cy="-28" rx="22" ry="42" transform="rotate(120 0 0)"/>
+                <circle cx="0" cy="0" r="16" fill="#f8e5a7" stroke="#e2c67f"/>
+              </g>
+              <g fill="#e9dcfb" stroke="#c8b5e9" stroke-width="3" transform="translate(606 312) scale(.92)">
+                <ellipse cx="0" cy="-28" rx="22" ry="42"/>
+                <ellipse cx="0" cy="-28" rx="22" ry="42" transform="rotate(60 0 0)"/>
+                <ellipse cx="0" cy="-28" rx="22" ry="42" transform="rotate(120 0 0)"/>
+                <circle cx="0" cy="0" r="16" fill="#fff2c7" stroke="#e2c67f"/>
+              </g>
+              <g fill="#f7d5e2" stroke="#e4a8be" stroke-width="2.5">
+                <path d="M365 110c-11-16-32-7-28 10 3 13 28 28 28 28s25-15 28-28c4-17-16-26-28-10Z"/>
+                <path d="M505 100c-11-16-32-7-28 10 3 13 28 28 28 28s25-15 28-28c4-17-16-26-28-10Z"/>
+                <path d="M680 220c-9-14-27-6-24 8 2 11 24 24 24 24s22-13 24-24c4-15-14-22-24-8Z"/>
+                <path d="M183 232c-9-14-27-6-24 8 2 11 24 24 24 24s22-13 24-24c4-15-14-22-24-8Z"/>
+              </g>
+              <g transform="translate(430 470)">
+                <path d="M-110 0 0 95 110 0 70 155h-140z" fill="url(#wrap)" stroke="#d5b27f" stroke-width="4"/>
+                <path d="M-110 0 0 95 110 0" fill="none" stroke="#f9edce" stroke-width="5"/>
+                <path d="M-14 70h28v98h-28z" fill="#e8b0c5"/>
+                <path d="M-80 26c26 28 56 39 80 44 24-5 54-16 80-44" fill="none" stroke="#de9ab6" stroke-width="5" stroke-linecap="round"/>
+              </g>
+            </g>
+          </svg>
+          <button class="enter-btn" id="enterSite" type="button">Go to your letter ✉</button>
+          <div class="enter-note">Tap to continue</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen hidden" id="envelopeScreen">
+    <div class="envelope-wrap">
+      <div class="envelope-card">
+        <div class="inner">
+          <div class="mini-title">for my princess</div>
+          <button class="envelope-btn" id="openLetter" aria-controls="letterPaper" aria-expanded="false" aria-label="Open the letter" type="button">
+            <svg class="envelope-svg" viewBox="0 0 480 330" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M71 86 239 13 411 86v186H71Z" fill="#efcfdb" stroke="#cda6b7" stroke-width="3"/>
+              <rect x="85" y="59" width="310" height="196" rx="6" fill="#fffdf9" stroke="#eee2dc" stroke-width="2" transform="rotate(-2 240 157)"/>
+              <path d="M71 87 240 220 411 87v185H71Z" fill="#f7dfe8" stroke="#d7b5c2" stroke-width="3"/>
+              <path d="M72 270 210 160q30-23 59 0l142 110" fill="#fce8ed" stroke="#d7b5c2" stroke-width="3"/>
+              <path d="M71 87 220 204q20 16 40 0L411 87" fill="#ffeef3" stroke="#d7b5c2" stroke-width="3"/>
+              <circle cx="240" cy="205" r="30" fill="#e7a4b9"/>
+              <path d="M240 197c-8-15-27-6-23 7 2 11 23 24 23 24s21-13 23-24c4-13-16-22-23-7Z" fill="#fff6f8"/>
+            </svg>
+          </button>
+          <div class="tap-note">Tap the envelope to open ✉</div>
+
+          <article class="letter-paper" id="letterPaper" tabindex="-1">
+            <h2>My Princess,</h2>
+            <div class="letter-body">
+              <p class="strong">happy national princess day, my princess.</p>
+              <p>I know today is national princess day, but u have always been my princess, not just today.</p>
+              <p>I hope u know how incredibly special u are to me. it's not just because of how pretty u are, but because of the person u are. ur kindness, ur little habits, ur smile, the way u talk about things u love, and even all the tiny things u might not notice about urself are things that make me appreciate u more and more every day.</p>
+              <p>i know life isn't always easy for u, and there are days when things don't go the way u hoped. I wish I could take away all the worries and make every day a little easier, but even when I can't, I hope u never forget that u have someone who believes in u, cares about u, and will always be cheering u on :)</p>
+              <p>thank u for letting me be part of ur life, for all the memories we've made, for every conversation, every laugh, every little moment, and for making me feel so lucky to be ur boyfriend, im the luckiest person in the world. even the simplest moments become special when they're with u.</p>
+              <p>and of course, as ur husband, i'll do my best to remind my princess wife just how loved and appreciated she is hehe 🐼🦫</p>
+              <p>I hope today reminds u that u deserve to be celebrated n treated with kindness. not just because u r my princess, but because you're wonderful just as u are.</p>
+              <p>happy national princess day, my pretty princess. I hope I can keep making u smile, making u feel loved, and creating many more happy memories with u. I can’t give u a hug n a physical flower, so I will give them here.</p>
+              <p class="strong">love u so sooooooooo muchhh, my princess</p>
+              <div class="signature">— your panda ♡</div>
+            </div>
+            <button class="close-btn" id="closeLetter" type="button">Close the letter ↑</button>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const bouquetScreen = document.getElementById('bouquetScreen');
+    const envelopeScreen = document.getElementById('envelopeScreen');
+    const enterSite = document.getElementById('enterSite');
+    const openLetter = document.getElementById('openLetter');
+    const closeLetter = document.getElementById('closeLetter');
+    const letterPaper = document.getElementById('letterPaper');
+
+    enterSite.addEventListener('click', ()=>{
+      bouquetScreen.classList.add('hidden');
+      envelopeScreen.classList.remove('hidden');
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+
+    openLetter.addEventListener('click', ()=>{
+      letterPaper.classList.add('is-open');
+      openLetter.style.display='none';
+      document.querySelector('.tap-note').style.display='none';
+      setTimeout(()=>letterPaper.scrollIntoView({behavior:'smooth', block:'center'}),100);
+    });
+
+    closeLetter.addEventListener('click', ()=>{
+      letterPaper.classList.remove('is-open');
+      openLetter.style.display='inline-block';
+      document.querySelector('.tap-note').style.display='block';
+      openLetter.scrollIntoView({behavior:'smooth', block:'center'});
+    });
+  </script>
+</body>
+</html>
